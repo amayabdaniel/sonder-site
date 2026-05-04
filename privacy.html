@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sonder — Privacy Policy</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="nav">
+  <div class="brand">
+    <span class="brand-dot" aria-hidden></span>
+    <span class="brand-name"><a href="index.html" style="text-decoration:none;color:inherit">Sonder</a></span>
+  </div>
+  <nav>
+    <a href="index.html#how">How it works</a>
+    <a href="index.html#install">Install</a>
+    <a href="consent.html">Consent</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>Privacy Policy</h1>
+<p class="muted">Effective: 2026-04-28. Contact: <a href="mailto:danielsdab2000@gmail.com">danielsdab2000@gmail.com</a>.</p>
+
+<p>Sonder is a real-time meeting copilot. This document describes exactly what Sonder collects, where it goes, and how to delete it.</p>
+
+<h2>What Sonder captures</h2>
+<p>Sonder captures audio from a meeting only when <strong>you</strong> click Start (in the macOS app or the Chrome side panel). A red pulsing indicator is visible at all times while audio is flowing. Stopping ends capture immediately.</p>
+<p>By default Sonder runs entirely on your own machine: a local backend you operate, plus the macOS app or extension. Your audio never leaves your computer in the local-only mode.</p>
+<p>When you opt into <strong>cloud transcription</strong> (by setting <code>DEEPGRAM_API_KEY</code> on your local backend), 16 kHz PCM audio is streamed over TLS to Deepgram for the duration of the session. When you opt into <strong>cloud answers</strong> (by setting <code>CEREBRAS_API_KEY</code>, <code>ANTHROPIC_API_KEY</code>, etc.), the transcript text — not the audio — is sent to that LLM provider. Each provider has its own privacy policy; you control which providers Sonder talks to.</p>
+
+<h2>What Sonder stores</h2>
+<table>
+  <tr><th>Where</th><th>What</th><th>When</th><th>Delete by</th></tr>
+  <tr><td><code>~/.sonder/token</code></td><td>32-character random WebSocket auth token.</td><td>Generated once on first server boot.</td><td><code>rm ~/.sonder/token</code></td></tr>
+  <tr><td><code>~/.sonder/notes.lance</code></td><td>Notes you upload via the app or <code>POST /notes</code>, plus their embedding vectors.</td><td>Only when you explicitly upload.</td><td><code>rm -rf ~/.sonder/notes.lance</code></td></tr>
+  <tr><td><code>~/.sonder/cache.sqlite</code></td><td>Question prompts + answers + embeddings for semantic-cache lookup.</td><td>Per session, until you delete.</td><td><code>rm ~/.sonder/cache.sqlite*</code></td></tr>
+  <tr><td><code>~/.sonder/transcripts.sqlite</code></td><td>Transcript chunks + session metadata. Surfaces in the History view.</td><td>Per session.</td><td>History sheet → swipe delete · or <code>rm ~/.sonder/transcripts.sqlite*</code></td></tr>
+  <tr><td><code>~/.cache/fastembed</code></td><td>The downloaded BGE-small embedding model (~25 MB).</td><td>Once.</td><td><code>rm -rf ~/.cache/fastembed</code></td></tr>
+  <tr><td>Server log (stdout)</td><td>Structured tracing events. <strong>No raw audio. No transcript text in the log.</strong></td><td>Per session, where you direct stdout.</td><td>Stop logging or rotate.</td></tr>
+</table>
+<p>Sonder <strong>never writes raw audio frames to disk.</strong> PCM buffers are forwarded to STT and dropped from memory once transcribed.</p>
+
+<h2>Browser extension specifics</h2>
+<p>The Chrome extension uses <code>chrome.storage.local</code> only to cache the local server's auth token (read once at session start, never sent off-machine). It does not use cookies, IndexedDB, or analytics SDKs.</p>
+<p>The extension only talks to <code>http://127.0.0.1:8080</code> (your own local Sonder server). It does not connect to any remote service directly.</p>
+
+<h2>Consent</h2>
+<p>By clicking Start you affirm that you have the right to record this meeting under the laws applicable in your jurisdiction and the policies of the meeting platform. <strong>Sonder does not check this for you.</strong> See the <a href="consent.html">consent notice</a> for jurisdictional guidance and a suggested participant disclosure.</p>
+
+<h2>Your rights</h2>
+<ul>
+  <li><strong>Access:</strong> every file Sonder writes is in your home directory. Open it.</li>
+  <li><strong>Deletion:</strong> delete the files listed above. There is no remote copy.</li>
+  <li><strong>Portability:</strong> notes are stored as Apache Arrow (Lance); you can read them with any tool that speaks Lance.</li>
+  <li><strong>Withdrawal:</strong> stop the server (<code>pkill sonder-server</code>) and uninstall the app/extension. No remote state is left behind.</li>
+</ul>
+
+<h2>Changes</h2>
+<p>Material changes to this policy are committed to the <a href="https://github.com/amayabdaniel/sonder-clients/blob/main/PRIVACY.md" target="_blank" rel="noopener">repository</a> and dated. Watch the repo for notifications.</p>
+</main>
+</body>
+</html>

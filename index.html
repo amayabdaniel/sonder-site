@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Sonder — a consent-first real-time meeting copilot. Native macOS app + Chrome extension. Your audio stays on your machine by default.">
+<meta name="theme-color" content="#0a0a0a">
+<meta property="og:title" content="Sonder — meeting copilot">
+<meta property="og:description" content="Consent-first real-time meeting copilot. Native macOS + Chrome extension.">
+<meta property="og:type" content="website">
+<title>Sonder — meeting copilot</title>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='28' fill='%23d22'/%3E%3C/svg%3E">
+</head>
+<body>
+<header class="nav">
+  <div class="brand">
+    <span class="brand-dot" aria-hidden></span>
+    <span class="brand-name">Sonder</span>
+  </div>
+  <nav>
+    <a href="#how">How it works</a>
+    <a href="#privacy">Privacy</a>
+    <a href="#install">Install</a>
+    <a href="https://github.com/amayabdaniel/sonder-clients" target="_blank" rel="noopener">GitHub</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <h1>A meeting copilot that <em>doesn't</em> live in the cloud.</h1>
+    <p class="lead">
+      Sonder listens to your meetings — only when you tell it to — and quietly
+      transcribes, indexes, and answers questions while you focus on the people
+      in the call. Native macOS app + Chrome extension. Your audio stays on
+      your machine by default.
+    </p>
+    <div class="cta">
+      <a class="btn btn-primary" href="#install">Install</a>
+      <a class="btn btn-ghost" href="#how">How it works</a>
+    </div>
+    <p class="meta">Open source · Single-user, localhost-first · Works with Meet, Zoom, Teams</p>
+  </section>
+
+  <section id="how" class="band">
+    <h2>How it works</h2>
+    <ol class="steps">
+      <li>
+        <span class="step-num">1</span>
+        <div>
+          <h3>You start it.</h3>
+          <p>
+            Click the menu bar icon (macOS) or the side panel button (Chrome).
+            A red indicator stays visible the whole time audio is flowing —
+            never hidden, never automatic.
+          </p>
+        </div>
+      </li>
+      <li>
+        <span class="step-num">2</span>
+        <div>
+          <h3>It transcribes locally or via your provider.</h3>
+          <p>
+            Audio streams over a local WebSocket to <code>sonder-server</code>
+            running on your machine. From there, it's either fully on-device
+            (Phase 4 — coming) or routed to the STT provider you choose.
+          </p>
+        </div>
+      </li>
+      <li>
+        <span class="step-num">3</span>
+        <div>
+          <h3>It answers, with context you control.</h3>
+          <p>
+            Final transcripts are matched against a private notes index you
+            curate, then sent to the LLM router. You see streaming answers as
+            cards in the side panel. Cached answers come back instantly the
+            next time the same question shows up.
+          </p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section id="privacy" class="band band-alt">
+    <h2>Privacy promise</h2>
+    <ul class="rules">
+      <li><strong>You start it.</strong> Sonder never auto-records and never auto-joins.</li>
+      <li><strong>It is visible.</strong> A red indicator is on the whole time audio flows.</li>
+      <li><strong>You own the data.</strong> Transcripts, notes, and cached answers live in <code>~/.sonder/</code>. Nothing leaves your machine unless you opt into a cloud provider.</li>
+      <li><strong>You can leave clean.</strong> Stop the server, uninstall the apps, delete <code>~/.sonder/</code>. No remote state.</li>
+    </ul>
+    <p class="meta">
+      Read the <a href="privacy.html">full privacy policy</a> and the
+      <a href="consent.html">consent notice</a> (with jurisdictional guidance).
+    </p>
+  </section>
+
+  <section id="install" class="band">
+    <h2>Install</h2>
+    <div class="install-grid">
+      <article class="install-card">
+        <h3>macOS app</h3>
+        <p>Native Swift / SwiftUI. Menu bar app + main window. Captures system audio via <code>CATapDescription</code>.</p>
+        <a class="btn btn-primary" href="https://github.com/amayabdaniel/sonder-clients/releases" target="_blank" rel="noopener">Download .app</a>
+        <p class="muted">Requires macOS 14.4+. First run grants <em>Screen &amp; System Audio Recording</em> in System Settings.</p>
+      </article>
+      <article class="install-card">
+        <h3>Chrome extension</h3>
+        <p>MV3 side panel. Captures the active meeting tab. Talks only to <code>http://127.0.0.1:8080</code> on your machine.</p>
+        <a class="btn btn-primary" href="https://chromewebstore.google.com/" target="_blank" rel="noopener">Get from Chrome Web Store</a>
+        <p class="muted">Or load unpacked from the <a href="https://github.com/amayabdaniel/sonder-clients/tree/main/extension" target="_blank" rel="noopener">source</a>.</p>
+      </article>
+      <article class="install-card">
+        <h3>Local backend</h3>
+        <p>Single-binary Rust server. Generates a token at <code>~/.sonder/token</code> on first run. Bound to <code>127.0.0.1</code>.</p>
+        <pre><code>cargo install --git https://github.com/amayabdaniel/sonder-server</code></pre>
+        <p class="muted">Optional: <code>DEEPGRAM_API_KEY</code> + <code>CEREBRAS_API_KEY</code> in <code>.env</code> for cloud STT/LLM.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="band">
+    <h2>What it's made of</h2>
+    <p class="meta">Sonder is open source. Three repos:</p>
+    <ul class="repo-list">
+      <li><a href="https://github.com/amayabdaniel/sonder-server" target="_blank" rel="noopener"><code>sonder-server</code></a> — Rust backend, RAG, intent filter, answer cache, <code>/metrics</code>.</li>
+      <li><a href="https://github.com/amayabdaniel/sonder-clients" target="_blank" rel="noopener"><code>sonder-clients</code></a> — macOS app + Chrome MV3 extension.</li>
+      <li><a href="https://github.com/amayabdaniel/sonder-shared" target="_blank" rel="noopener"><code>sonder-shared</code></a> — Rust types + traits.</li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <p class="muted">
+    Sonder is built by Daniel Amaya. Questions? <a href="mailto:danielsdab2000@gmail.com">danielsdab2000@gmail.com</a>.
+  </p>
+</footer>
+</body>
+</html>

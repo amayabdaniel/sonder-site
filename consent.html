@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sonder — Consent Notice</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="nav">
+  <div class="brand">
+    <span class="brand-dot" aria-hidden></span>
+    <span class="brand-name"><a href="index.html" style="text-decoration:none;color:inherit">Sonder</a></span>
+  </div>
+  <nav>
+    <a href="index.html#how">How it works</a>
+    <a href="index.html#install">Install</a>
+    <a href="privacy.html">Privacy</a>
+  </nav>
+</header>
+
+<main class="doc">
+<h1>Consent Notice</h1>
+<p>Read this once, then keep it where your participants can find it.</p>
+
+<p>Sonder listens to meeting audio you have explicitly authorized it to capture. It is not a hidden recorder. The product is designed around four rules:</p>
+<ol>
+  <li><strong>You start it.</strong> Sonder never auto-joins or auto-records. Capture begins only after you click Start (or trigger the keyboard shortcut), and ends the moment you click Stop, close the app, or close the tab.</li>
+  <li><strong>It is visible.</strong> Whenever audio is being captured, Sonder shows a pulsing red indicator in the macOS menu bar AND in the Chrome side panel. The indicator never lies — if it's red, audio is flowing.</li>
+  <li><strong>You own the data.</strong> Transcripts, notes, and cached answers live in <code>~/.sonder/</code> on your own machine. Nothing is uploaded except (a) audio you opt into sending to a cloud STT provider, and (b) transcript text you opt into sending to a cloud LLM provider. Both are off by default.</li>
+  <li><strong>You can leave clean.</strong> Stop the server, uninstall the app/extension, delete <code>~/.sonder/</code>, and there is no trace.</li>
+</ol>
+
+<h2>Suggested participant disclosure</h2>
+<p>Display this once at the start of any meeting where Sonder is active:</p>
+<blockquote class="rules" style="display:block; padding:0.9rem 1.2rem;">
+  Heads up — I'm using a real-time AI copilot during this meeting. It transcribes the audio locally and helps me draft notes and answer questions. Please let me know if you'd prefer I disable it.
+</blockquote>
+
+<h2>Jurisdictional notice</h2>
+<p>Recording-consent law varies by country and US state. Sonder does <strong>not</strong> check whether you have the right to record. It is your responsibility to know:</p>
+<ul>
+  <li><strong>Two-party / all-party consent states (US):</strong> California, Florida, Illinois, Maryland, Massachusetts, Michigan, Montana, Nevada, New Hampshire, Pennsylvania, Washington — explicit consent from every participant is typically required.</li>
+  <li><strong>GDPR / European Economic Area:</strong> processing meeting audio is "personal data." A lawful basis (contract, legitimate interests, consent) is required; for sensitive content, explicit consent.</li>
+  <li><strong>Workplace policies:</strong> your employer's policy may forbid third-party copilots regardless of legality. Check before you ship a recording.</li>
+</ul>
+<p>When in doubt: ask first, or don't use Sonder for that meeting.</p>
+
+<h2>What to tell anyone who asks</h2>
+<ul>
+  <li><em>"What's the red dot?"</em> — "It's the indicator that my AI copilot is listening to this meeting. I started it; it's local; I can stop it; I'd love to share what it generates if you want."</li>
+  <li><em>"Where does the audio go?"</em> — "If I have cloud transcription on, audio goes over TLS to my STT provider for the call duration only. If I'm in local mode, it doesn't leave my laptop."</li>
+  <li><em>"Where are the transcripts?"</em> — "On my disk in <code>~/.sonder/</code>. I can hand you a copy or delete them on demand."</li>
+</ul>
+</main>
+</body>
+</html>
