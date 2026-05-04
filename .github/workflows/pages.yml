@@ -1,8 +1,11 @@
 name: pages
 
 on:
+  # Disabled by design — only fires on a branch that doesn't exist + manual dispatch.
+  # Same pattern as the other repos. Tech debt: deploys are manual until we're
+  # ready to flip this back to [main].
   push:
-    branches: [main]
+    branches: [ci-enabled]
   workflow_dispatch:
 
 permissions:
