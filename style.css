@@ -216,3 +216,20 @@ footer {
 .doc table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: 0.94rem; }
 .doc th, .doc td { padding: 0.5rem 0.7rem; border: 1px solid var(--border); text-align: left; vertical-align: top; }
 .doc th { background: var(--panel-alt); }
+
+/* Brand-name anchor: inherits the surrounding span's colour and
+   drops the default `a` underline. Lets the brand reading like a
+   static logo while still being a real link. Replaces inline style
+   on `<a>` inside `.brand-name` (consent.html:15, privacy.html:15)
+   so style-src can drop 'unsafe-inline'. */
+.brand-name a { text-decoration: none; color: inherit; }
+
+/* Blockquote reuse of `.rules`: the `.rules` class above is designed
+   for `<ul class="rules">` (list-style:none; display:grid). The
+   consent page reuses the class on a `<blockquote>` to pick up the
+   `.rules strong` accent colour; the blockquote specifier narrows
+   the rule so it only applies to that one use-site and does not
+   reshape `<ul class="rules">` elsewhere. Replaces inline style on
+   `<blockquote class="rules">` (consent.html:38) so style-src can
+   drop 'unsafe-inline'. */
+blockquote.rules { display: block; padding: 0.9rem 1.2rem; }
